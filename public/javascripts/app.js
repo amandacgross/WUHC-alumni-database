@@ -25,3 +25,10 @@ app.controller('insertController', function($scope, $http) {
     };
     
 });
+
+app.controller('profileController', function($scope, $http) {
+	//note that the current profile info will probably be retrieved when they appear on the search page, and saved in scope variable
+	$scope.SaveProfile = function () {
+		//will save this profile to the user's list of saved profiles
+	}
+});
