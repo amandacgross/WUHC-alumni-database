@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
+  res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
 });
 
 router.get('/reference', function(req, res, next) {

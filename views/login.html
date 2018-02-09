@@ -24,26 +24,24 @@
          <div class="container">
             <!-- Main component for a primary marketing message or call to action-->
             <div class="jumbotron">
-         <div ng-controller="myController">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Please enter a person login:
-            <input name="email" ng-model="email" value="">
-            <button type="button" ng-click="Submit()" class="button">Submit</button>
-        </p>
-        <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
-            <tr> 
-            <td> Login </td>
-            <td> Name </td>
-            <td> Sex </td>
-            <td> RelationshipStatus </td>
-            <td> Birthyear </td>
-            <tr ng-repeat="x in data"> 
-            <td> {{x.login}} </td>
-            <td> {{x.name}} </td>
-            <td> {{x.sex}} </td>
-            <td> {{x.relationshipStatus}} </td>
-            <td> {{x.birthyear}} </td>
-            </tr>
-        </table>
+            <div ng-controller="loginController" data-ng-init="Init()">
+            <div class="container" width = "20">
+            
+            <div class="w3-container w3-black">
+              <h3>Login</h3>
+            </div>
+            <form class="w3-container" id="login-form">
+              <p>
+              <label>Email ID</label>
+              <input class="w3-input" ng-model="email" type="text"></p>
+              <p>
+              <label>Password</label>
+              <input class="w3-input" ng-model="password" type="Password"></p>
+              <button type="button" ng-click="Signin()" class="w3-button">Sign In</button>
+              <button type="button" ng-click="Signup()" class="w3-button">Sign Up</button>
+            </form>
+            </div>
+            <div id= "message">{{mg}}</div>
         </div>
     </body>
 </html>
