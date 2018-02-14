@@ -13,6 +13,15 @@ var connection = mysql.createConnection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
+});
+
+router.get('/requestPassword', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'requestPassword.html'));
+});
+
+// TODO:implement password checking and redirection
+router.get('/checkPassword', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
 });
 
@@ -47,4 +56,6 @@ router.get('/insert/:values', function(req,res) {
 
     });
 });
+
+
 module.exports = router;
