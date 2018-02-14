@@ -23,6 +23,7 @@ router.get('/requestPassword', function(req, res, next) {
 // TODO:implement password checking and redirection
 router.get('/checkPassword', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
+
 });
 
 router.get('/reference', function(req, res, next) {
@@ -32,6 +33,11 @@ router.get('/reference', function(req, res, next) {
 router.get('/insert', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'insert.html'));
 });
+
+router.get('/profile', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'profile.html'));
+});
+
 
 router.get('/data/:email', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
