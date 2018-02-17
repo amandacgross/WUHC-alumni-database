@@ -1,13 +1,5 @@
 var app = angular.module('angularjsNodejsTutorial',[]);
 
-//
-// Set up connection to AWS
-//
-AWS.config.region = 'us-east-1'; // Region
-AWS.config.credentials = new AWS.Credentials('[Access key ID]', '[Secret access key]');
-var dynamodb = new AWS.DynamoDB();
-
-
 app.controller('loginController', function($scope, $http, $window) {
 
         $scope.Init = function() {
@@ -73,7 +65,7 @@ app.controller('myController', function($scope, $http) {
         $scope.message="";
         $scope.Submit = function() {
             console.log('entered function');
-        var request = $http.get('/data/'+$scope.email);
+        var request = $http.get('/data/' + $scope.email); //'/data/'+$scope.email
         request.success(function(data) {
             $scope.data = data;
         });
