@@ -39,6 +39,10 @@ router.get('/profile', function(req, res, next) {
 });
 
 
+router.get('/lookup', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'lookup.html'));
+});
+
 router.get('/data/:email', function(req,res) {
   // use console.log() as print() in case you want to debug, example below:
   // console.log("inside person email");

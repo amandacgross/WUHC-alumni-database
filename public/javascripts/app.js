@@ -72,6 +72,7 @@ app.controller('loginController', function($scope, $http, $window) {
 app.controller('myController', function($scope, $http) {
         $scope.message="";
         $scope.Submit = function() {
+            console.log('entered function');
         var request = $http.get('/data/'+$scope.email);
         request.success(function(data) {
             $scope.data = data;
