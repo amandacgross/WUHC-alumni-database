@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var vogels = require('vogels');
+var util   = require('util');
+var _      = require('lodash');
 var Joi = require('joi');
 
 //
 // Set up connection to AWS
 //
-vogels.AWS.config.update({ region: "us-east-1"});
+vogels.AWS.config.update({accessKeyId: 'AKIAIZ26RLMDGNSQRYCQ', secretAccessKey: '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',
+ region: "us-east-1"});
 
 /*
 // Connect string to MySQL
@@ -43,7 +46,10 @@ var printResults = function (err, resp) {
     console.log('Error running scan', err);
   } else {
     console.log('Found', resp.Count, 'items');
+    var items = util.inspect(_.pluck(resp.Items, 'attrs'));
     console.log(util.inspect(_.pluck(resp.Items, 'attrs')));
+    //console.log('Items: ' + resp.Items);
+    return(items);
 
     if(resp.ConsumedCapacity) {
       console.log('----------------------------------------------------------------------');
@@ -53,6 +59,8 @@ var printResults = function (err, resp) {
 
   console.log('----------------------------------------------------------------------');
 };
+
+Alumni.config({tableName : 'Alumni'});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -87,8 +95,26 @@ router.get('/lookup', function(req, res, next) {
 });
 
 router.get('/data', function(req,res) {
-	console.log('here');
-	Account.scan().exec(printResults);
+	Alumni.scan().exec(function(err, resp) {
+  		console.log('----------------------------------------------------------------------');
+  		if(err) {
+    		console.log('Error running scan', err);
+  		} else {
+    		console.log('Found', resp.Count, 'items');
+    		var items = util.inspect(_.pluck(resp.Items, 'attrs'));
+    		console.log(util.inspect(_.pluck(resp.Items, 'attrs')));
+    		//console.log('Items: ' + resp.Items);
+    		res.json(items);
+
+    		if(resp.ConsumedCapacity) {
+      			console.log('----------------------------------------------------------------------');
+      			console.log('Scan consumed: ', resp.ConsumedCapacity);
+    		}
+  		}
+
+  		console.log('----------------------------------------------------------------------');
+	});
+	//res.json(data);
 });
 
 router.get('/data/:email', function(req,res) {

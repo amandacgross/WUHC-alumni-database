@@ -65,9 +65,10 @@ app.controller('myController', function($scope, $http) {
         $scope.message="";
         $scope.Submit = function() {
             console.log('entered function');
-        var request = $http.get('/data/' + $scope.email); //'/data/'+$scope.email
+        var request = $http.get('/data'); 
         request.success(function(data) {
             $scope.data = data;
+            console.log(data);
         });
         request.error(function(data){
             console.log('err');
