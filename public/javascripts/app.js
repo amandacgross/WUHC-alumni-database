@@ -64,17 +64,18 @@ app.controller('loginController', function($scope, $http, $window) {
 app.controller('myController', function($scope, $http) {
         $scope.message="";
         $scope.Submit = function() {
-            console.log('entered function');
-        var request = $http.get('/data'); 
-        request.success(function(data) {
-            $scope.data = data;
-            console.log(data);
-        });
-        request.error(function(data){
-            console.log('err');
-        });
-    
-    }; 
+            var request = $http.get('/data'); 
+            request.success(function(data) {
+                $scope.data = data.Items;
+                console.log(data.Items);
+            });
+            request.error(function(data){
+                console.log('err');
+            });
+        };
+        $scope.SelectProfile = function (x) {
+            $window.location.href = '/profile?aid=' + x.aID;
+        }; 
 });
 
 app.controller('insertController', function($scope, $http) {

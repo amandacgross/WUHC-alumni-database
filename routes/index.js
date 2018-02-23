@@ -40,6 +40,7 @@ var Alumni = vogels.define('Alumni', {
   }
 });
 
+/*
 var printResults = function (err, resp) {
   console.log('----------------------------------------------------------------------');
   if(err) {
@@ -58,7 +59,7 @@ var printResults = function (err, resp) {
   }
 
   console.log('----------------------------------------------------------------------');
-};
+};*/
 
 Alumni.config({tableName : 'Alumni'});
 
@@ -101,10 +102,7 @@ router.get('/data', function(req,res) {
     		console.log('Error running scan', err);
   		} else {
     		console.log('Found', resp.Count, 'items');
-    		var items = util.inspect(_.pluck(resp.Items, 'attrs'));
-    		console.log(util.inspect(_.pluck(resp.Items, 'attrs')));
-    		//console.log('Items: ' + resp.Items);
-    		res.json(items);
+    		res.json(resp);
 
     		if(resp.ConsumedCapacity) {
       			console.log('----------------------------------------------------------------------');

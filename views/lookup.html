@@ -30,17 +30,21 @@
         </p>
         <table border="0" cellpadding="10" cellspacing="1" width="500" align="center"> 
             <tr> 
-            <td> Login </td>
-            <td> Name </td>
-            <td> Sex </td>
-            <td> RelationshipStatus </td>
-            <td> Birthyear </td>
-            <tr> <!-- ng-repeat="x in data" --> 
-            <td> {{x.login}} </td>
-            <td> {{x.name}} </td>
-            <td> {{x.sex}} </td>
-            <td> {{x.relationshipStatus}} </td>
-            <td> {{x.birthyear}} </td>
+            <td> First Name </td>
+            <td> Last Name </td>
+            <td> Industry </td>
+            <td> Location </td>
+            <td> Organization </td>
+            <td> Graduation Year </td>
+            <td> School </td>
+            <tr ng-repeat="x in data" ng-click="SelectProfile(x)">
+            <td> {{x.firstName}} </td>
+            <td> {{x.lastName}} </td>
+            <td> {{x.industry}} </td>
+            <td> {{x.location}} </td>
+            <td> {{x.organization}} </td>
+            <td> {{x.gradYear}} </td>
+            <td> {{x.school}} </td>
             </tr>
         </table>
         </div>
