@@ -63,6 +63,8 @@ var printResults = function (err, resp) {
 
 Alumni.config({tableName : 'Alumni'});
 
+var fetchedTable;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
@@ -102,6 +104,8 @@ router.get('/data', function(req,res) {
     		console.log('Error running scan', err);
   		} else {
     		console.log('Found', resp.Count, 'items');
+    		fetchedTable = resp.Items;
+    		console.log(fetchedTable[0].attrs);
     		res.json(resp);
 
     		if(resp.ConsumedCapacity) {
@@ -128,6 +132,13 @@ router.get('/data/:email', function(req,res) {
         res.json(rows);
     }  
     });
+});
+
+router.get('/data/show/profile/:aid', function(req,res) {
+  var aid = req.params.aid;
+  console.log('aid ' + fetchedTable[aid-1]);
+  console.log();
+  res.json(fetchedTable[aid-1].attrs);
 });
 
 router.get('/insert/:values', function(req,res) {

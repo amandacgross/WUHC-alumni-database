@@ -22,23 +22,21 @@
             </div>
         </nav>
 
-        <div class="wrapper">
+        <div class="wrapper" ng-controller="profileController" ng-model="data">
         	<div class="image-wrapper">
         	<img src="https://pbs.twimg.com/media/DMeUFl1XcAMpnqP.jpg" width=300 height=300>
         	<div class="caption">
-        		<p>FIRST NAME</p>
-        		<p>LAST NAME</p>
+        		<p>{{data.firstName.toUpperCase()}}</p>
+        		<p>{{data.lastName.toUpperCase()}}</p>
         	</div>
         </div>
         	<div class="infobox">
-        		<p class="description">Location- </p>
-        		<p class="description">Industry- </p>
-				<p class="description">Company Organization- </p>
-				<p class="description">School- </p>
-				<p class="description">Graduation Year- </p>
+        		<p class="description">Location- {{data.location}}</p>
+        		<p class="description">Industry- {{data.industry}}</p>
+				<p class="description">Company Organization- {{data.organization}}</p>
+				<p class="description">School- {{data.school}}</p>
+				<p class="description">Graduation Year- {{data.gradYear}}</p>
 			</div>
-        	<div ng-controller="profileController">
-        	</div>
         </div>
     </body>
 </html>
