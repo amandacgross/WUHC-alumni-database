@@ -5,11 +5,14 @@ var vogels = require('vogels');
 var util   = require('util');
 var _      = require('lodash');
 var Joi = require('joi');
+var fs = require('fs');
 
 //
 // Set up connection to AWS
 //
-vogels.AWS.config.update({accessKeyId: 'AKIAIZ26RLMDGNSQRYCQ', secretAccessKey: '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',
+var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
+console.log(access.accessKeyId);
+vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
  region: "us-east-1"});
 
 /*

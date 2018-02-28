@@ -68,6 +68,7 @@ app.controller('myController', function($scope, $window, $http) {
             request.success(function(data) {
                 $scope.data = data.Items;
                 console.log(data.Items);
+                $('#alumniTable').DataTable();
             });
             request.error(function(data){
                 console.log('err');
