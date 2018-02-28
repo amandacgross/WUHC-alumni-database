@@ -2,12 +2,18 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var vogels = require('vogels');
+var util   = require('util');
+var _      = require('lodash');
 var Joi = require('joi');
+var fs = require('fs');
 
 //
 // Set up connection to AWS
 //
-vogels.AWS.config.update({ region: "us-east-1"});
+var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
+console.log(access.accessKeyId);
+vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
+ region: "us-east-1"});
 
 /*
 // Connect string to MySQL
@@ -37,13 +43,17 @@ var Alumni = vogels.define('Alumni', {
   }
 });
 
+/*
 var printResults = function (err, resp) {
   console.log('----------------------------------------------------------------------');
   if(err) {
     console.log('Error running scan', err);
   } else {
     console.log('Found', resp.Count, 'items');
+    var items = util.inspect(_.pluck(resp.Items, 'attrs'));
     console.log(util.inspect(_.pluck(resp.Items, 'attrs')));
+    //console.log('Items: ' + resp.Items);
+    return(items);
 
     if(resp.ConsumedCapacity) {
       console.log('----------------------------------------------------------------------');
@@ -52,7 +62,11 @@ var printResults = function (err, resp) {
   }
 
   console.log('----------------------------------------------------------------------');
-};
+};*/
+
+Alumni.config({tableName : 'Alumni'});
+
+var fetchedTable;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -87,8 +101,25 @@ router.get('/lookup', function(req, res, next) {
 });
 
 router.get('/data', function(req,res) {
-	console.log('here');
-	Account.scan().exec(printResults);
+	Alumni.scan().exec(function(err, resp) {
+  		console.log('----------------------------------------------------------------------');
+  		if(err) {
+    		console.log('Error running scan', err);
+  		} else {
+    		console.log('Found', resp.Count, 'items');
+    		fetchedTable = resp.Items;
+    		console.log(fetchedTable[0].attrs);
+    		res.json(resp);
+
+    		if(resp.ConsumedCapacity) {
+      			console.log('----------------------------------------------------------------------');
+      			console.log('Scan consumed: ', resp.ConsumedCapacity);
+    		}
+  		}
+
+  		console.log('----------------------------------------------------------------------');
+	});
+	//res.json(data);
 });
 
 router.get('/data/:email', function(req,res) {
@@ -104,6 +135,13 @@ router.get('/data/:email', function(req,res) {
         res.json(rows);
     }  
     });
+});
+
+router.get('/data/show/profile/:aid', function(req,res) {
+  var aid = req.params.aid;
+  console.log('aid ' + fetchedTable[aid-1]);
+  console.log();
+  res.json(fetchedTable[aid-1].attrs);
 });
 
 router.get('/insert/:values', function(req,res) {

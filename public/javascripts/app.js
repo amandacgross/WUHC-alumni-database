@@ -61,19 +61,22 @@ app.controller('loginController', function($scope, $http, $window) {
 });
 
 //Call this function when page loads rather than waiting for the click
-app.controller('myController', function($scope, $http) {
+app.controller('myController', function($scope, $window, $http) {
         $scope.message="";
         $scope.Submit = function() {
-            console.log('entered function');
-        var request = $http.get('/data/' + $scope.email); //'/data/'+$scope.email
-        request.success(function(data) {
-            $scope.data = data;
-        });
-        request.error(function(data){
-            console.log('err');
-        });
-    
-    }; 
+            var request = $http.get('/data'); 
+            request.success(function(data) {
+                $scope.data = data.Items;
+                console.log(data.Items);
+                $('#alumniTable').DataTable();
+            });
+            request.error(function(data){
+                console.log('err');
+            });
+        };
+        $scope.SelectProfile = function (x) {
+            $window.location.href = '/profile?aid=' + x.aID;
+        }; 
 });
 
 app.controller('insertController', function($scope, $http) {
@@ -89,7 +92,21 @@ app.controller('insertController', function($scope, $http) {
     
 });
 
-app.controller('profileController', function($scope, $http) {
+app.controller('profileController', function($scope, $window, $http) {
+    var args = location.search.split('&');
+
+    var aid = args[0].split('aid=')[1];
+    $window.onload = function () {
+        var request = $http.get('/data/show/profile/' + aid);
+        request.success(function(data) {
+            console.log(data);
+            $scope.data = data;
+            console.log(data.location);
+        });
+        request.error(function(data) {
+            console.log('err');
+        });
+    }
 	//note that the current profile info will probably be retrieved when they appear on the search page, and saved in scope variable
 	$scope.SaveProfile = function () {
 		//will save this profile to the user's list of saved profiles
