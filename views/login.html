@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html ng-app="angularjsNodejsTutorial">
-<<<<<<< HEAD
 <head>
     <title>WUHC Almuni Database</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
@@ -15,17 +14,22 @@
     <div class="container">
         <!-- Main component for a primary marketing message or call to action-->
         <div class="jumbotron">
-         <div ng-controller="myController">
-           <div>
-            Welcome to the WUHC Alumni Database! Please enter the password provided to you to browse.
+           <!-- <div ng-controller="myController"> -->
+            <div ng-controller="loginController">
+             <div>
+                Welcome to the WUHC Alumni Database! Please enter the password provided to you to browse.
+            </div>
+            <!-- <form action="/checkPassword" method="post"> -->
+                <form action="/checkPassword" method="post">
+                    <p> Please enter password:
+                        <input type="password" name="password">
+                       <!-- <button type="button" ng-click="Submit()" class="button">Log In</button> -->
+                       <button type="submit">Log In</button> 
+                    </p>
+                </form>
+                <a href= '/requestPassword'> Request password.</a>
+            </div>
         </div>
-        <form action="/checkPassword" method="get">
-        <p> Please enter password:
-            <input type="password" name="password">
-            <button type="button" ng-click="Submit()" class="button">Log In</button>
-        </p>
-    </form>
-    <a href= '/requestPassword'> Request password.</a>
     </div>
 </body>
 </html>

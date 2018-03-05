@@ -1,20 +1,21 @@
 var app = angular.module('angularjsNodejsTutorial',[]);
 
 app.controller('loginController', function($scope, $http, $window) {
-
         $scope.Init = function() {
             console.log('hi');
         };
         $scope.Signin = function() {
 
             var data = {
-                 email: $scope.email,
+                 //email: $scope.email,
                  password: $scope.password
             };
 
-            var request = $http.post('/signin', data);
+            //var request = $http.post('/signin', data);
+            var request = $http.post('/checkPassword', data);
             request.success(function(data) {
-                if(data == true){
+               // if(data == true){
+                if(data){
                     $scope.mg = 'sign in successful';
                     console.log('login success');
                     $window.location.href = '/menu?user='+$scope.email;

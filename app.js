@@ -4,11 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
+var uuid = require('node-uuid');
 
 var index = require('./routes/index');
+// checks if a user is logged in, otherwise redirects to login
+var passwordCheck = require('./middlewares/passwordCheck'); 
 //var users = require('./routes/users');
 
 var app = express();
+
+// Generate a random cookie secret for this app
+var generateCookieSecret = function () {
+  return 'iamasecret' + uuid.v4();
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,9 +29,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// to have password protected sessions
+app.use(cookieSession({
+  secret: generateCookieSecret()
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/insert', passwordCheck);
+app.use('/lookup', passwordCheck, index);
+app.use('/profile', passwordCheck);
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
