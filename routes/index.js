@@ -124,6 +124,14 @@ router.get('/lookup', function(req, res, next) {
   }
 });
 
+router.get('/saved', function(req, res, next) {
+  if(req.session.isAuthenticated) {
+    res.sendFile(path.join(__dirname, '../', 'views', 'saved.html'));
+  } else {
+    res.redirect('/');
+  }
+})
+
 router.get('/data', function(req,res) {
 	Alumni.scan().exec(function(err, resp) {
     console.log('----------------------------------------------------------------------');
@@ -134,7 +142,6 @@ router.get('/data', function(req,res) {
       fetchedTable = resp.Items;
       console.log(fetchedTable[0].attrs);
       res.json(resp);
-
       if(resp.ConsumedCapacity) {
        console.log('----------------------------------------------------------------------');
        console.log('Scan consumed: ', resp.ConsumedCapacity);
@@ -163,7 +170,8 @@ router.get('/data/:email', function(req,res) {
 
 router.get('/data/show/profile/:aid', function(req,res) {
   var aid = req.params.aid;
-  console.log('aid ' + fetchedTable[aid-1]);
+  console.log("HERE")
+  console.log('aid ' + fetchedTable[aid-1].attrs.firstName);
   console.log();
   res.json(fetchedTable[aid-1].attrs);
 });

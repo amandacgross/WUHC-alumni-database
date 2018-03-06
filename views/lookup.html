@@ -19,46 +19,50 @@
             <div class="bluestripe"><div class="redstripe"></div></div>
             <img id="logo" src="https://s3.amazonaws.com/wuhc/logo.png" width=125>
             <div id="navbar" class="collapse navbar-collapse">
-                <li><a href="/">Your Work</a></li>
+                <li><a href="/saved">Saved Profiles</a></li>
                 <li class="active"><a href="/insert">Insert a new record</a></li>
                 <li><a href="/reference">Reference</a></li>
                 <form action="/logout" method="post">
-                       <button type="submit">Log Out</button> 
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <!-- Main component for a primary marketing message or call to action-->
-        <div class="jumbotron">
-           <div ng-controller="myController" ng-init="Submit()">
-            <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Please enter a person login:
-                <input name="email" ng-model="email" value="">
-                <button type="button" class="button">Submit</button> <!-- ng-click="Submit()"-->
-            </p>
-            <table id="alumniTable" class="display"> <!-- border="0" cellpadding="10" cellspacing="1" width="500" align="center"--> 
-                <tr> 
-                    <td> First Name </td>
-                    <td> Last Name </td>
-                    <td> Industry </td>
-                    <td> Location </td>
-                    <td> Organization </td>
-                    <td> Graduation Year </td>
-                    <td> School </td>
-                    <tr ng-repeat="x in data" ng-click="SelectProfile(x)">
-                        <td> {{x.firstName}} </td>
-                        <td> {{x.lastName}} </td>
-                        <td> {{x.industry}} </td>
-                        <td> {{x.location}} </td>
-                        <td> {{x.organization}} </td>
-                        <td> {{x.gradYear}} </td>
-                        <td> {{x.school}} </td>
-                    </tr>
-                </table>
-            </div></div></div>
-            <div class="bottom-container">
-                <div class="bluestripe"><div class="redstripe"></div></div>
-            </div>
-        </body>
+                 <button type="submit">Log Out</button> 
+             </form>
+         </div>
+     </div>
+ </nav>
+ <div class="container">
+    <!-- Main component for a primary marketing message or call to action-->
+    <div class="jumbotron">
+     <div ng-controller="myController" ng-init="Submit()">
+        <!-- <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Please enter a person login:
+            <input name="email" ng-model="email" value="">
+            <button type="button" class="button">Submit</button> <!-- ng-click="Submit()"
+        </p> -->
+        <table id="alumniTable" class="display"> <!-- border="0" cellpadding="10" cellspacing="1" width="500" align="center"--> 
+                    <thead>
+                        <tr>
+                            <tr> 
+                                <th> First Name </th>
+                                <th> Last Name </th>
+                                <th> Industry </th>
+                                <th> Location </th>
+                                <th> Organization </th>
+                                <th> Graduation Year </th>
+                                <th> School </th> 
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="x in data" ng-click="SelectProfile(x)">
+                            <td> {{x.firstName}} </td>
+                            <td> {{x.lastName}} </td>
+                            <td> {{x.industry}} </td>
+                            <td> {{x.location}} </td>
+                            <td> {{x.organization}} </td>
+                            <td> {{x.gradYear}} </td>
+                            <td> {{x.school}} </td>
+                        </tr>
+                    </table>
+                </div></div></div>
+                <div class="bottom-container">
+                    <div class="bluestripe"><div class="redstripe"></div></div>
+                </div>
+            </body>
 
-        </html>
+            </html>

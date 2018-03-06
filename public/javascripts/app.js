@@ -76,6 +76,7 @@ app.controller('myController', function($scope, $window, $http) {
             });
         };
         $scope.SelectProfile = function (x) {
+            console.log(x);
             $window.location.href = '/profile?aid=' + x.aID;
         }; 
 });
@@ -95,14 +96,19 @@ app.controller('insertController', function($scope, $http) {
 
 app.controller('profileController', function($scope, $window, $http) {
     var args = location.search.split('&');
-
     var aid = args[0].split('aid=')[1];
     $window.onload = function () {
         var request = $http.get('/data/show/profile/' + aid);
         request.success(function(data) {
-            console.log(data);
             $scope.data = data;
-            console.log(data.location);
+            $('#title').html(data.firstName + " " + data.lastName);
+            $('#fname').html(data.firstName);
+            $('#lname').html(data.lastName);
+            $('#location').html(data.location);
+            $('#descI').html(data.industry);
+            $('#descCO').html(data.organization);
+            $('#school').html(data.school);
+            $('#year').html(data.gradYear);
         });
         request.error(function(data) {
             console.log('err');

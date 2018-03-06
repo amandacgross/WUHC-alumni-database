@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html ng-app="angularjsNodejsTutorial">
     <head>
-        <title>~Person's Name~</title>
+        <title id="title"></title>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="javascripts/app.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <!-- Custom styles for this template-->
         <!-- <link href="../css/navbar-static-top.css" rel="stylesheet"> -->
         <link href="/stylesheets/profile-css.css" rel="stylesheet">
+        <script>
+            
+        </script>
     </head>
     <body data-spy="scroll" data-target=".scrollspy">
         <!-- Static navbar-->
         <nav role="navigation" class="navbar navbar-static-top navbar-default">
             <div class="container">
-                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">HW2 - CIS550</a></div>
+                <div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"></a></div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <li><a href="/">Your Work</a></li>
                     <li class="active"><a href="/insert">Insert a new record</a></li>
@@ -24,21 +28,27 @@
                 </div>
             </div>
         </nav>
-
-        <div class="wrapper">
+        <div class="wrapper" >
         	<div class="image-wrapper">
         	<img src="https://pbs.twimg.com/media/DMeUFl1XcAMpnqP.jpg" width=300 height=300>
         	<div class="caption">
-        		<p>FIRST NAME</p>
-        		<p>LAST NAME</p>
+        		<p class ="description">First name: </p>
+                <div id="fname"></div>
+        		<p class="description">Last name: </p>
+                <div id="lname"></div>
         	</div>
         </div>
         	<div class="infobox">
         		<p class="description">Location- </p>
+                <div id="location"></div>
         		<p class="description">Industry- </p>
+                <div id="descI"></div>
 				<p class="description">Company Organization- </p>
+                <div id="descCO"></div>
 				<p class="description">School- </p>
+                 <div id="school"></div>
 				<p class="description">Graduation Year- </p>
+                <div id="year"></div>
 			</div>
         	<div ng-controller="profileController">
         	</div>

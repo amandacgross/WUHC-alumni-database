@@ -40,6 +40,7 @@ app.use('/', index);
 app.use('/insert', passwordCheck);
 app.use('/lookup', passwordCheck, index);
 app.use('/profile', passwordCheck);
+app.use('/saved', passwordCheck);
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
