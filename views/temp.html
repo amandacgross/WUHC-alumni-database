@@ -1,41 +1,103 @@
 <!DOCTYPE html>
-<html ng-app="angularjsNodejsTutorial">
-<head>
-    <title>WUHC Alumni Database</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
-    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/wuhc/logo.png" sizes="16x16">
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.40.min.js"></script>
+<html>
+<title>WUHC Alumni Database</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.40.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="javascripts/app.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-    <style>
-    td, th {font color: "#000000"}
-    </style>
+    
+<style>
+body,h1,h2,h3,h5,h6,label {font-family: "Lato", sans-serif, font-weight:"bolder"}
+h4 {font-family: "Lato", sans-serif, font-weight:"lighter"}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 12px 0 0 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+</style>
+<head>
+  <link rel="icon" type="image/png" href="https://s3.amazonaws.com/wuhc/logo.png" sizes="16x16">
 </head>
-<body data-spy="scroll" data-target=".scrollspy">
- <!-- Navbar -->
- <div class="w3-top">
+<body>
+
+  <!-- Navbar -->
+  <div class="w3-top">
     <div class="w3-bar w3-red w3-card w3-left-align w3-large">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-      <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Alumni Lookup</a>
-      <a href='/saved' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Saved Profiles</a>
-      <a href='/insert' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Insert New Profile</a>
-      <form action="/logout" method="post">
-        <button class="w3-bar-item w3-button w3-padding-large w3-hover-white" type="submit">Log Out</button> 
-    </form>
-</div>
-</div>
-<header class="w3-container w3-signal-blue w3-center" style="padding:128px 16px">
-<div class="container">
+      <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Login</a>
+      <a href='/requestPassword' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Request Password</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+      <a href="'/requestPassword'" class="w3-bar-item w3-button w3-padding-large">Request Password</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="w3-container w3-signal-blue w3-center" style="padding:128px 16px">
+   <div class="container">
     <!-- Main component for a primary marketing message or call to action-->
     <div class="jumbotron">
        <div ng-controller="myController" ng-init="Submit()">
@@ -68,9 +130,10 @@
             </table>
         </div>
     </div>
-</div>
 </header>
+
 <div class="w3-container w3-red w3-center w3-padding-64"></div>
+
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
   <div class="w3-xlarge w3-padding-32">
@@ -92,5 +155,4 @@ function myFunction() {
 </script>
 
 </body>
-
 </html>

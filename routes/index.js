@@ -80,20 +80,21 @@ router.get('/requestPassword', function(req, res, next) {
 
 router.post('/checkPassword', function (req, res, next) {
   console.log("checking password");
-  // DUMMY: update to a potential function or just change the string to desired password
+  // DUMMY: update to a potential function or just change the string to desired password, potential hash and store in db
   if (req.body.password === 'password') {
     req.session.isAuthenticated = true;
     res.redirect('lookup');
   } else {
-    res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
+    res.redirect('/')
   }
 });
 
 router.post('/logout', function(req, res, next) {
   req.session.isAuthenticated = false;
-  res.redirect('/')
+  res.redirect('/');
 })
 
+// ? when is this used 
 router.get('/reference', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
 });
@@ -119,6 +120,7 @@ router.get('/profile', function(req, res, next) {
 router.get('/lookup', function(req, res, next) {
   if(req.session.isAuthenticated) {
     res.sendFile(path.join(__dirname, '../', 'views', 'lookup.html'));
+    //res.sendFile(path.join(__dirname, '../', 'views', 'temp.html'));
   } else {
     res.redirect('/');
   }
