@@ -68,7 +68,33 @@ app.controller('myController', function($scope, $window, $http) {
             request.success(function(data) {
                 $scope.data = data.Items;
                 console.log(data.Items);
-                $('#alumniTable').DataTable();
+                $('#alumniTable thead th').each( function () {
+                    var title = $(this).text();
+                    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                } );
+                var table = $('#alumniTable').DataTable({
+                    data : $scope.data,
+                    columns : [
+                        {data: "firstName"},
+                        {data: "lastName"},
+                        {data: "industry"},
+                        {data: "location"},
+                        {data: "organization"},
+                        {data: "gradYear"},
+                        {data: "school"}
+                    ]
+                });
+                // Apply the search
+                table.columns().every( function () {
+                    var that = this;
+                    $( 'input', this.header() ).on( 'keyup change', function () {
+                        if ( that.search() !== this.value ) {
+                            that
+                            .search( this.value )
+                            .draw();
+                        }
+                    } );
+                } );
             });
             request.error(function(data){
                 console.log('err');

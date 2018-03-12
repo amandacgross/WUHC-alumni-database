@@ -27,28 +27,18 @@
             <!-- Main component for a primary marketing message or call to action-->
             <div class="jumbotron">
          <div ng-controller="myController" ng-init="Submit()">
-        <p><span aria-hidden="true" class="glyphicon text-primary glyphicon-search"></span> Please enter a person login:
-            <input name="email" ng-model="email" value="">
-            <button type="button" class="button">Submit</button> <!-- ng-click="Submit()"-->
-        </p>
         <table id="alumniTable" class="display"> <!-- border="0" cellpadding="10" cellspacing="1" width="500" align="center"--> 
-            <tr> 
-            <td> First Name </td>
-            <td> Last Name </td>
-            <td> Industry </td>
-            <td> Location </td>
-            <td> Organization </td>
-            <td> Graduation Year </td>
-            <td> School </td>
-            <tr ng-repeat="x in data" ng-click="SelectProfile(x)">
-            <td> {{x.firstName}} </td>
-            <td> {{x.lastName}} </td>
-            <td> {{x.industry}} </td>
-            <td> {{x.location}} </td>
-            <td> {{x.organization}} </td>
-            <td> {{x.gradYear}} </td>
-            <td> {{x.school}} </td>
-            </tr>
+            <thead> 
+                <th> First Name </th>
+                <th> Last Name </th>
+                <th> Industry </th>
+                <th> Location </th>
+                <th> Organization </th>
+                <th> Graduation Year </th>
+                <th> School </th>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
         </div>
     </body>
