@@ -43,26 +43,7 @@ var Alumni = vogels.define('Alumni', {
   }
 });
 
-/*
-var printResults = function (err, resp) {
-  console.log('----------------------------------------------------------------------');
-  if(err) {
-    console.log('Error running scan', err);
-  } else {
-    console.log('Found', resp.Count, 'items');
-    var items = util.inspect(_.pluck(resp.Items, 'attrs'));
-    console.log(util.inspect(_.pluck(resp.Items, 'attrs')));
-    //console.log('Items: ' + resp.Items);
-    return(items);
-
-    if(resp.ConsumedCapacity) {
-      console.log('----------------------------------------------------------------------');
-      console.log('Scan consumed: ', resp.ConsumedCapacity);
-    }
-  }
-
-  console.log('----------------------------------------------------------------------');
-};*/
+var alumniMap = new Map();
 
 Alumni.config({tableName : 'Alumni'});
 
@@ -142,7 +123,14 @@ router.get('/data', function(req,res) {
     } else {
       console.log('Found', resp.Count, 'items');
       fetchedTable = resp.Items;
-      console.log(fetchedTable[0].attrs);
+      var i=0;
+      for (row in fetchedTable) {
+        var id = fetchedTable[i].attrs.aID;
+        var contents = fetchedTable[i].attrs;
+        console.log(fetchedTable[i].attrs);
+        i++;
+        alumniMap.set(id, contents);
+      }
       res.json(resp);
       if(resp.ConsumedCapacity) {
        console.log('----------------------------------------------------------------------');
@@ -172,10 +160,7 @@ router.get('/data/:email', function(req,res) {
 
 router.get('/data/show/profile/:aid', function(req,res) {
   var aid = req.params.aid;
-  console.log("HERE")
-  console.log('aid ' + fetchedTable[aid-1].attrs.firstName);
-  console.log();
-  res.json(fetchedTable[aid-1].attrs);
+  res.json(alumniMap.get(parseInt(aid)));
 });
 
 router.get('/insert/:values', function(req,res) {
