@@ -76,8 +76,10 @@ app.controller('myController', function($scope, $window, $http) {
                 var table = $('#alumniTable').DataTable({
                     data : $scope.data,
                     rowId : "aID",
+                   // autoWidth : false,
+
                     columns : [
-                        {data: "firstName"},
+                        {data: "firstName", width: "50px"},
                         {data: "lastName"},
                         {data: "industry"},
                         {data: "location"},
@@ -101,6 +103,7 @@ app.controller('myController', function($scope, $window, $http) {
                 	var aid = table.row(this).id();
                 	$window.location.href = '/profile?aid=' + aid;
                 });
+                 $('#alumniTable').width(100);
 
             });
             request.error(function(data){
