@@ -1,0 +1,8 @@
+#alumniTable {
+	color:#000000;
+	table-layout: fixed;
+	width: 100% !important;
+}
+input[type="text"] { 
+	width: 90% !important; 
+}
