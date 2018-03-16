@@ -11,7 +11,7 @@ var fs = require('fs');
 // Set up connection to AWS
 //
 //var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
-console.log(process.env.accessKeyId);
+console.log('hello ' + process.env.accessKeyId);
 vogels.AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
  region: "us-east-1"});
 
