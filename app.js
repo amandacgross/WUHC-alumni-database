@@ -61,7 +61,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(process.env.PORT, function(){
+app.listen(process.env.PORT || 8080, function(){
+//  console.log('Port:' + process.env.PORT);
 	console.log('Server running on heroku provided port');
 });
 

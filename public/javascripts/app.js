@@ -140,6 +140,8 @@ app.controller('profileController', function($scope, $window, $http) {
             $('#descCO').html(data.organization);
             $('#school').html(data.school);
             $('#year').html(data.gradYear);
+            $('#email').html(data.email);
+            $('#photo').attr('src', data.photo);
         });
         request.error(function(data) {
             console.log('err');
