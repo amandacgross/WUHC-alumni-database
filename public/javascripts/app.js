@@ -71,7 +71,7 @@ app.controller('myController', function($scope, $window, $http) {
                 console.log(data.Items);
                 $('#alumniTable thead th').each( function () {
                     var title = $(this).text();
-                    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                    $(this).html( '<input type="text" placeholder="'+title+'" />' );
                 } );
                 var table = $('#alumniTable').DataTable({
                     data : $scope.data,
