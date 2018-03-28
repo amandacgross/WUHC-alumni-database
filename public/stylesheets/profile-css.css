@@ -1,5 +1,6 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #154889;
 }
 
 a {
@@ -8,9 +9,11 @@ a {
 
 .wrapper {
   padding: 50px;
+  padding-top: 100px;
   display: flex;  
   flex-flow: row wrap;
   font-weight: bold;
+  color: white;
 }
 
 .caption {
