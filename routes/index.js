@@ -11,11 +11,11 @@ var crypto = require('crypto-js/sha256');
 //
 // Set up connection to AWS
 //
-var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
-//vogels.AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
-//region: "us-east-1"});
-vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
- region: "us-east-1"});
+//var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
+vogels.AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
+region: "us-east-1"});
+//vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
+// region: "us-east-1"});
 
 /*
 // Connect string to MySQL
@@ -266,7 +266,7 @@ router.get('/data/:email', function(req,res) {
 
 router.get('/data/show/profile/:aid', function(req,res) {
   var aid = req.params.aid;
-  res.json(alumniMap.get(parseInt(aid)));
+  res.json(alumniMap.get(parseFloat(aid)));
 });
 
 router.get('/insert/:values', function(req,res) {
