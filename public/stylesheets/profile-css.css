@@ -3,6 +3,11 @@ body {
   background-color: #154889;
 }
 
+h1 {
+  display: block !important;
+  padding-left: 4px;
+}
+
 a {
   color: #00B7FF;
 }
@@ -10,18 +15,25 @@ a {
 .wrapper {
   padding: 50px;
   padding-top: 100px;
-  display: flex;  
-  flex-flow: row wrap;
-  font-weight: bold;
   color: white;
 }
 
+.inner-wrapper{
+  display: flex;  
+  flex-flow: row wrap;
+}
+
 .caption {
-	display: flex;
-	justify-content: space-evenly;
-	padding: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
 }
 
 .infobox {
-	padding: 10px;
+  padding: 10px;
+  padding-left:30px;
 }
+
+table td {
+  padding: 10px;
+}s

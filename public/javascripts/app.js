@@ -131,15 +131,15 @@ app.controller('profileController', function($scope, $window, $http) {
         var request = $http.get('/data/show/profile/' + aid);
         request.success(function(data) {
             $scope.data = data;
-            $('#title').html(data.firstName + " " + data.lastName);
-            $('#fname').html("First name: " + data.firstName);
-            $('#lname').html("Last name: " + data.lastName);
-            $('#location').html("Location- " + data.location);
-            $('#descI').html("Industry- "+ data.industry);
-            $('#descCO').html("Company Organization- "+ data.organization);
-            $('#school').html("School- " + data.school);
-            $('#year').html("Graduation Year- " + data.gradYear);
-            $('#email').html("Email address- " + data.email);
+            $('#name').html(data.firstName + " " + data.lastName);
+            $('#fname').html(data.firstName);
+            $('#lname').html(data.lastName);
+            $('#location').html(data.location);
+            $('#descI').html(data.industry);
+            $('#descCO').html(data.organization);
+            $('#school').html(data.school);
+            $('#year').html(data.gradYear);
+            $('#email').html(data.email);
             $('#photo').attr('src', data.photo);
         });
         request.error(function(data) {

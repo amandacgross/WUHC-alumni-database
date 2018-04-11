@@ -22,34 +22,49 @@
     </head>
     <body data-spy="scroll" data-target=".scrollspy">
         <!-- Navbar -->
-        <div class="w3-top">
+         <div class="w3-top">
             <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Alumni Lookup</a>
-                <a href='/saved' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Saved Profiles</a>
-                <a href='/insert' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Insert New Profile</a>
-                <form action="/logout" method="post">
-                    <button class="w3-bar-item w3-button w3-padding-large w3-hover-white" type="submit">Log Out</button> 
-                </form>
-            </div>
+              <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+              <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Alumni Lookup</a>
+              <form action="/logout" method="post">
+                <button class="w3-bar-item w3-button w3-padding-large w3-hover-white" type="submit">Log Out</button> 
+            </form>
+        </div>
         </div>
 
         <div class="wrapper" >
-        	<div class="image-wrapper">
-        	<img id="photo" src="https://pbs.twimg.com/media/DMeUFl1XcAMpnqP.jpg" width=300 height=300>
-        	<div class="caption">
-        		<p id="fname"></p>
-        		<p id="lname"></p>
-        	</div>
+            <h1 id="name"></h1><br>
+        	<div class="inner-wrapper">
+        	   <img id="photo" width=300 height=300>
+        	   <div class="infobox">
+                    <table class="infotable">
+                        <tr>
+                            <td>Location: </td>
+                            <td id="location"></td>
+                        </tr>
+                        <tr>
+                            <td>Industry: </td>
+                            <td id="descI"></td>
+                        </tr>
+                        <tr>
+                            <td>Company/Organization: </td>
+                            <td id="descCO"></td>
+                        </tr>
+                        <tr>
+                            <td>School: </td>
+                            <td id="school"></td>
+                        </tr>
+                        <tr>
+                            <td>Graudation Year: </td>
+                            <td id="year"></td>
+                        </tr>
+                        <tr>
+                            <td>Email Address: </td>
+                            <td id="email"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        	<div class="infobox">
-                <p id="location"></p>
-        		<p id="descI"></p>
-				<p id="descCO"></p>
-				<p id="school"></p>
-				<p id="year"></p>
-                <p id="email"></p>
-			</div>
         	<div ng-controller="profileController">
         	</div>
         </div>
