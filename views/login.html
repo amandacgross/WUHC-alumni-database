@@ -23,22 +23,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <div class="w3-bar w3-red w3-card w3-left-align w3-large">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <a href="/" class="w3-bar-item w3-button w3-padding-large w3-white">Login</a>
-      <a href='/requestPassword' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Request Password</a>
+      <a href='/createAccount' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Create User Account </a>
+      <a href='/insertProfile' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"> Insert Alumni Profile </a>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-      <a href="'/requestPassword'" class="w3-bar-item w3-button w3-padding-large">Request Password</a>
+      <a href="/createAccount" class="w3-bar-item w3-button w3-padding-large">Create User Account</a>
+      <a href="/insertProfile" class="w3-bar-item w3-button w3-padding-large">Create Alumni Account</a>
     </div>
   </div>
 
   <!-- Header -->
   <header class="w3-container w3-signal-blue w3-center" style="padding:128px 16px">
     <h1 class="w3-margin w3-jumbo">Wharton Undergraduate Healthcare Club Alumni Database</h1>
-    <p class="w3-xlarge">Enter password to begin browsing.</p>
+    <p class="w3-xlarge">Enter email and password to begin browsing.</p>
     <div ng-controller="loginController">
       <form action="/checkPassword" method="post">
-          <div> <input class="w3-padding-large w3-large w3-margin-top" type="password" name="password"> </div>
+          <div> 
+            <label> Email: </label>
+            <input class="w3-padding-large w3-large w3-margin-top" type="email" name="email"> </div>
+          <div> <label> Password: </label><input class="w3-padding-large w3-large w3-margin-top" type="password" name="password"> </div>
           <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit">Go!</button> 
       </form>
     </div>

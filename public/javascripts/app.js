@@ -7,14 +7,13 @@ app.controller('loginController', function($scope, $http, $window) {
         $scope.Signin = function() {
 
             var data = {
-                 //email: $scope.email,
+                 username: $scope.username,
                  password: $scope.password
             };
 
             //var request = $http.post('/signin', data);
             var request = $http.post('/checkPassword', data);
             request.success(function(data) {
-               // if(data == true){
                 if(data){
                     $scope.mg = 'sign in successful';
                     console.log('login success');

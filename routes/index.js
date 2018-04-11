@@ -6,15 +6,16 @@ var util   = require('util');
 var _      = require('lodash');
 var Joi = require('joi');
 var fs = require('fs');
+var crypto = require('crypto-js/sha256');
 
 //
 // Set up connection to AWS
 //
-//var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
-vogels.AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
+var access=JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'public','javascripts', 'access.json'), 'utf8'));
+//vogels.AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
+//region: "us-east-1"});
+vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
  region: "us-east-1"});
-//vogels.AWS.config.update({accessKeyId: access.accessKeyId, secretAccessKey: access.secretAccessKey,
-// region: "us-east-1"});
 
 /*
 // Connect string to MySQL
@@ -46,9 +47,32 @@ var Alumni = vogels.define('Alumni', {
   }
 });
 
+var UserAccount = vogels.define('UserAccount', {
+  hashKey  : 'email', // all users must have unique usernames
+  // add the timestamp attributes (updatedAt, createdAt)
+  timestamps : false,
+  schema : {
+    password : Joi.string(), // store the hash of it with --> var hash = CryptoJS.SHA512("Message");
+    firstName   : Joi.string(),
+    lastName   : Joi.string(),
+    email : Joi.string(),
+    saved : vogels.types.stringSet() // set of all strings of the id's of saved alumni profiles 
+  }
+});
+
+/*vogels.createTables(function(err) {
+  if (err) {
+    console.log('Error creating tables: ', err);
+  } else {
+    console.log('Tables has been created');
+  }
+});*/
+
 var alumniMap = new Map();
+var accountsMap = new Map();
 
 Alumni.config({tableName : 'Alumni'});
+UserAccount.config({tableName : 'UserAccount'});
 
 var fetchedTable;
 var checkValidLogin = require('../middlewares/passwordCheck');
@@ -58,25 +82,104 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', 'views', 'login.html'));
 });
 
-router.get('/requestPassword', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'requestPassword.html'));
+router.get('/createAccount', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'createAccount.html'));
 });
 
+router.get('/insertProfile', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'insertProfile.html'));
+});
+
+// Not sure if work, bc unable to access aws 
 router.post('/checkPassword', function (req, res, next) {
   console.log("checking password");
-  // DUMMY: update to a potential function or just change the string to desired password, potential hash and store in db
-  if (req.body.password === 'password') {
-    req.session.isAuthenticated = true;
-    res.redirect('lookup');
-  } else {
-    res.redirect('/')
-  }
+  UserAccount.get(req.body.email, function (err, resp) {
+    if (err) {
+      console.log('Error finding account', err);
+      res.redirect('/login');
+    } else if (resp == null) {
+      res.redirect('/');
+    } else {
+      var hashPass = resp.attrs.password;
+      if (req.body.password == hashPass) {
+        console.log('here');
+        req.session.isAuthenticated = true;
+        req.user = resp.username;
+        res.redirect('/lookup');
+      } else {
+        res.redirect('/');
+      }
+    }
+  });
 });
 
-router.post('/logout', function(req, res, next) {
-  req.session.isAuthenticated = false;
-  res.redirect('/');
+ // Not sure if work, bc unable to access aws 
+ router.post('/create', function (req, res, next) {
+  console.log("creating account");
+  console.log(req.body);
+  UserAccount.create( {
+   password : req.body.password,
+   firstName   : req.body.firstname,
+   lastName   : req.body.lastname,
+   email : req.body.email,
+   saved : []
+ }, function(err, resp) {
+  console.log("ERE")
+  if(err) {
+    console.log('Error creating account', err);
+  } else {
+    req.session.isAuthenticated = true;
+    req.user = resp.username;
+    res.redirect('/lookup');
+  }
 })
+});
+
+  // Not sure if work, bc unable to access aws 
+  router.post('/insert', function (req, res, next) {
+    console.log("inserting profile");
+    console.log(req.body);
+    Alumni.create( {
+     firstName   : req.body.firstname,
+     lastName   : req.body.lastname,
+     email : req.body.email,
+     gradYear    : req.body.year,
+     industry     : req.body.industry,
+     location  : req.body.location,
+     organization  : req.body.organization,
+     school  : req.body.school,
+     aID: Math.random()*1234325252
+   }, function(err, resp) {
+    if(err) {
+      console.log('err')
+      console.log('Error creating account', err);
+    } else {
+      console.log("creating account");
+      console.log(req.body);
+      UserAccount.create( {
+       password : req.body.password,
+       firstName   : req.body.firstname,
+       lastName   : req.body.lastname,
+       email : req.body.email,
+       saved : []
+     }, function(err, resp) {
+      console.log("ERE")
+      if(err) {
+        console.log('Error creating account', err);
+      } else {
+        req.session.isAuthenticated = true;
+        req.user = resp.username;
+        res.redirect('/lookup');
+      }
+    })
+    }
+  })
+  });
+
+  router.post('/logout', function(req, res, next) {
+    req.session.isAuthenticated = false;
+    res.redirect('/');
+  })
 
 // ? when is this used 
 router.get('/reference', function(req, res, next) {
@@ -93,11 +196,11 @@ router.get('/insert', function(req, res, next) {
 });
 
 router.get('/profile', function(req, res, next) {
-   if(req.session.isAuthenticated) {
-    res.sendFile(path.join(__dirname, '../', 'views', 'profile.html'));
-  } else {
-    res.redirect('/');
-  }
+ if(req.session.isAuthenticated) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'profile.html'));
+} else {
+  res.redirect('/');
+}
 });
 
 

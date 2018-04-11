@@ -80,22 +80,23 @@ input[type=submit]:hover {
     <div class="w3-bar w3-red w3-card w3-left-align w3-large">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Login</a>
-      <a href='/requestPassword' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Request Password</a>
+      <a href='/createAccount' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Create User Account</a>
+      <a href='/insertProfile' class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"> Insert Alumni Profile </a>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-      <a href="'/requestPassword'" class="w3-bar-item w3-button w3-padding-large">Request Password</a>
+      <a href="/createAccount" class="w3-bar-item w3-button w3-padding-large">Create Account</a>
     </div>
   </div>
 
   <!-- Header -->
   <header class="w3-container w3-signal-blue w3-center" style="padding:128px 16px">
-    <div ng-controller="myController">
+    <div ng-controller="accountController">
      <div class="w3-xlarge">
-      If you would like to request access to the WUHC Alumni Database, please fill out the form below. 
+      If you would like to create an account to access the WUHC Alumni Database, please fill out the form below. 
     </div>
-    <form >
+    <form action="/create" method="post">
       <div class="row">
         <div class="col-25">
           <label for="fname">First Name: </label>
@@ -117,15 +118,15 @@ input[type=submit]:hover {
           <label for="email">Email: </label>
         </div>
         <div class="col-75">
-          <input type="text" id="lname" name="lastname" placeholder="Your email...">
+          <input type="text" id="lname" name="email" placeholder="Your email...">
         </div>
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="subject">Briefly explain why you would like access:</label>
+          <label for="subject">Password:</label>
         </div>
         <div class="col-75">
-          <textarea id="subject" name="subject" placeholder="Write something..." style="height:200px"></textarea>
+         <input type="text" id="lname" name="password" placeholder="Password...">
         </div>
       </div>
       <div class="row">

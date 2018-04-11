@@ -37,7 +37,7 @@ app.use(cookieSession({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/insert', passwordCheck);
+app.use('/insertProfile', index);
 app.use('/lookup', passwordCheck, index);
 app.use('/profile', passwordCheck);
 app.use('/saved', passwordCheck);
@@ -58,12 +58,12 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
 });
 
 app.listen(process.env.PORT || 8080, function(){
-//  console.log('Port:' + process.env.PORT);
-	console.log('Server running on heroku provided port');
+  console.log('Port:' + process.env.PORT);
+	//console.log('Server running on heroku provided port');
 });
 
 module.exports = app;
