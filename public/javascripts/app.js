@@ -182,6 +182,7 @@ app.controller('insertController', function($scope, $window, $http) {
                         $('#submit-btn').css("display","none");
                         $('#text1').html("Signup was successful");
                         $('#return-btn').css("display","inline");
+                        $window.scrollTo(0, 0);
                       }
                     });
                   }
