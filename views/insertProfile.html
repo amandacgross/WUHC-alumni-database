@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="angularjsNodejsTutorial">
 <title>WUHC Alumni Database</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.217.1.min.js"></script>
+<script src="javascripts/app.js" type="text/javascript"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -18,14 +22,6 @@ h4 {font-family: "Lato", sans-serif, font-weight:"lighter"}
 }
 
 input[type=text], select, textarea {
-    width: 80%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-input[type=password], select, textarea {
     width: 80%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -98,13 +94,13 @@ input[type=submit]:hover {
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Header action="/insert" method="post"-->
   <header class="w3-container w3-signal-blue w3-center" style="padding:128px 16px">
-    <div ng-controller="accountController">
-     <div class="w3-xlarge">
+    <div ng-controller="insertController">
+     <div class="w3-xlarge" id="text1">
       If you would like to create an account to access the WUHC Alumni Database, please fill out the form below. 
-    </div>
-    <form action="/insert" method="post">
+      </div>
+      <form id="alumniForm" action="/checkPassword" method="post">
       <div class="row">
         <div class="col-25">
           <label for="fname">First Name: </label>
@@ -126,7 +122,7 @@ input[type=submit]:hover {
           <label for="email">Email: </label>
         </div>
         <div class="col-75">
-          <input type="text" id="lname" name="email" placeholder="Your email...">
+          <input type="text" id="email" name="email" placeholder="Your email...">
         </div>
       </div>
       <div class="row">
@@ -169,6 +165,14 @@ input[type=submit]:hover {
           <input type="text" id="location" name="location" placeholder="Where do you work?">
         </div>
       </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="photo">Profile Photo: </label>
+        </div>
+        <div class="col-75">
+          <input type="file" name="my_file" id="file">
+        </div>
+      </div>
       <div> If you would like to also use this information to create a user account, enter a password below. 
           </div>
       <div class="row">
@@ -176,13 +180,16 @@ input[type=submit]:hover {
           <label for="subject">Password:</label>
         </div>
         <div class="col-75">
-         <input type="password" id="lname" name="password" placeholder="Password...">
+         <input type="text" id="password" name="password" placeholder="Password...">
         </div>
       </div> 
-      <div class="row">
-        <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit" >Submit</button>
-      </div>
     </form>
+      <div class="row" id="submit-btn">
+        <button ng-click="upload()" type="button" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Submit</button>
+      </div>
+      <div class="row" id="return-btn" style="display:none">
+        <button ng-click="return()" type="button" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Return to Login</button>
+      </div>
   </div>
 </header>
 
@@ -195,18 +202,6 @@ input[type=submit]:hover {
     <a href="https://www.wuhcpenn.org/" target="_blank">Wharton Undergraduate Healthcare Club</a>
   </div>
 </footer>
-
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-  var x = document.getElementById("navDemo");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else { 
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-</script>
 
 </body>
 </html>
