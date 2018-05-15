@@ -264,6 +264,11 @@ router.get('/data/:email', function(req,res) {
   });
 });
 
+router.get('/data/show/credentials', function(req, res) {
+  var credentials = {"accessKeyId": process.env.accessKeyId, "secretAccessKey": process.env.secretAccessKey};
+  res.json(credentials);
+});
+
 router.get('/data/show/profile/:aid', function(req,res) {
   var aid = req.params.aid;
   res.json(alumniMap.get(parseFloat(aid)));

@@ -113,7 +113,17 @@ app.controller('myController', function($scope, $window, $http) {
 
 app.controller('insertController', function($scope, $window, $http) {
      $scope.upload = function() {
-        AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey,
+        var request = $http.get('/data/show/credentials');
+        request.success(function(data) {
+            $scope.data = data;
+            console.log(data);
+            $scope.accessKeyId = data.accessKeyId;
+            $scope.secretAccessKey = data.secretAccessKey;
+        });
+        request.error(function(data) {
+            console.log('err');
+        });
+        AWS.config.update({accessKeyId: $scope.accessKeyId, secretAccessKey: $scope.secretAccessKey,
          region: "us-east-1"});
         var s3 = new AWS.S3({
             params: {Bucket: "wuhc"}
