@@ -123,74 +123,81 @@ app.controller('insertController', function($scope, $window, $http) {
         });
     };
      $scope.upload = function() {
-        AWS.config.update({accessKeyId: $scope.accessKeyId, secretAccessKey: $scope.secretAccessKey,
-         region: "us-east-1"});
-        var s3 = new AWS.S3({
-            params: {Bucket: "wuhc"}
-        });
-        var ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
-        console.log('hello');
-        var photoFile = document.getElementById('file').files[0];
-        console.log(photoFile);
-        s3.upload({
-            Key: photoFile.name,
-            Body: photoFile,
-            ACL: 'public-read'
-        }, function(err, data) {
-            if (err) {
-                console.log(err.message);
-            } else {
-                console.log('Successfully uploaded photo.');
-                console.log(data.Location);
-                var aID = Math.random()*1234325252;
-                var params = {
-                  TableName: 'Alumni',
-                  Item: {
-                    'aID' : {N: ''+aID},
-                    'firstName' : {S: $('#fname').val()},
-                    'gradYear' : {S: $('#year').val()},
-                    'industry' : {S: $('#industry').val()},
-                    'lastName' : {S: $('#lname').val()},
-                    'location' : {S: $('#location').val()},
-                    'organization' : {S: $('#organization').val()},
-                    'school' : {S: $('#school').val()},
-                    'photo' : {S: data.Location},
-                    'email' : {S: $('#email').val()}
-                  }
-                };
-
-                ddb.putItem(params, function(err, data) {
-                  if (err) {
-                    console.log("Error", err);
-                  } else {
-                    console.log("Success", data);
-                    params = {
-                      TableName: 'UserAccount',
+        if ($('#fname').val().length === 0 || $('#lname').val().length === 0
+            || $('#email').val().length === 0 || $('#year').val().length === 0
+            || $('#school').val().length === 0 || $('#industry').val().length === 0
+            || $('#organization').val().length === 0 || $('#location').val().length === 0
+            || $('#password').val().length === 0 || $('#file').get(0).files.length === 0) {
+            $('#missing-values').css('display','inline');
+        } else {
+            AWS.config.update({accessKeyId: $scope.accessKeyId, secretAccessKey: $scope.secretAccessKey,
+             region: "us-east-1"});
+            var s3 = new AWS.S3({
+                params: {Bucket: "wuhc"}
+            });
+            var ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
+            console.log('hello');
+            var photoFile = document.getElementById('file').files[0];
+            console.log(photoFile);
+            s3.upload({
+                Key: photoFile.name,
+                Body: photoFile,
+                ACL: 'public-read'
+            }, function(err, data) {
+                if (err) {
+                    console.log(err.message);
+                } else {
+                    console.log('Successfully uploaded photo.');
+                    console.log(data.Location);
+                    var aID = Math.random()*1234325252;
+                    var params = {
+                      TableName: 'Alumni',
                       Item: {
-                        'password' : {S: $('#password').val()},
+                        'aID' : {N: ''+aID},
                         'firstName' : {S: $('#fname').val()},
+                        'gradYear' : {S: $('#year').val()},
+                        'industry' : {S: $('#industry').val()},
                         'lastName' : {S: $('#lname').val()},
+                        'location' : {S: $('#location').val()},
+                        'organization' : {S: $('#organization').val()},
+                        'school' : {S: $('#school').val()},
+                        'photo' : {S: data.Location},
                         'email' : {S: $('#email').val()}
                       }
                     };
+
                     ddb.putItem(params, function(err, data) {
                       if (err) {
                         console.log("Error", err);
                       } else {
                         console.log("Success", data);
-                        $('#alumniForm').css("display","none");
-                        $('#submit-btn').css("display","none");
-                        $('#text1').html("Signup was successful");
-                        $('#return-btn').css("display","inline");
-                        $window.scrollTo(0, 0);
+                        params = {
+                          TableName: 'UserAccount',
+                          Item: {
+                            'password' : {S: $('#password').val()},
+                            'firstName' : {S: $('#fname').val()},
+                            'lastName' : {S: $('#lname').val()},
+                            'email' : {S: $('#email').val()}
+                          }
+                        };
+                        ddb.putItem(params, function(err, data) {
+                          if (err) {
+                            console.log("Error", err);
+                          } else {
+                            console.log("Success", data);
+                            $('#alumniForm').css("display","none");
+                            $('#submit-btn').css("display","none");
+                            $('#text1').html("Signup was successful");
+                            $('#return-btn').css("display","inline");
+                            $window.scrollTo(0, 0);
+                          }
+                        });
                       }
                     });
-                  }
-                });
-            }
-        });
+                }
+            });
+        }
     };
-
     $scope.return = function() {
         $window.location.href = '/';
     };
