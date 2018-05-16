@@ -2,9 +2,6 @@ var app = angular.module('angularjsNodejsTutorial',[]);
 
 app.controller('loginController', function($scope, $http, $window) {
         $scope.Init = function() {
-            if (location.search.length !== 0) {
-                $('#missing-values').css('display','inline');
-            }
         };
         $scope.Signin = function() {
 
@@ -16,6 +13,10 @@ app.controller('loginController', function($scope, $http, $window) {
             //var request = $http.post('/signin', data);
             var request = $http.post('/checkPassword', data);
             request.success(function(data) {
+                if (data) {
+                    $('#missing-values').css('display','inline');
+                }
+                /*
                 if(data){
                     $scope.mg = 'sign in successful';
                     console.log('login success');
@@ -24,7 +25,7 @@ app.controller('loginController', function($scope, $http, $window) {
                 }else{
                     $scope.mg = 'Incorrect username or password! Please click sign up if you are a new user';
                     console.log('incorrect login');
-                }
+                }*/
 
 
             });
