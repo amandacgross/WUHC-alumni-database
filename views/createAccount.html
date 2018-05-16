@@ -107,7 +107,7 @@ input[type=submit]:hover {
     </div>
     <form action="/create" method="post" onsubmit="if ($('#fname').val().length === 0 || $('#lname').val().length === 0
         || $('#email').val().length === 0 || $('#password').val().length === 0) {
-        $('#missing-values').css('display','inline');
+        $('#missing-values').css('display','block');
         return false;
         }">
       <div class="row">

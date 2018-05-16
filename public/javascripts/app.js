@@ -1,7 +1,14 @@
 var app = angular.module('angularjsNodejsTutorial',[]);
 
 app.controller('loginController', function($scope, $http, $window) {
-        $scope.Init = function() {
+        $window.onload = function() {
+            console.log('hello?')
+            if (location.search.length !== 0) {
+                console.log('true')
+                $('#missing-values').css('display','block');
+            }else {
+                console.log('false')
+            }
         };
         $scope.Signin = function() {
 
@@ -13,10 +20,6 @@ app.controller('loginController', function($scope, $http, $window) {
             //var request = $http.post('/signin', data);
             var request = $http.post('/checkPassword', data);
             request.success(function(data) {
-                if (data) {
-                    $('#missing-values').css('display','inline');
-                }
-                /*
                 if(data){
                     $scope.mg = 'sign in successful';
                     console.log('login success');
@@ -25,7 +28,7 @@ app.controller('loginController', function($scope, $http, $window) {
                 }else{
                     $scope.mg = 'Incorrect username or password! Please click sign up if you are a new user';
                     console.log('incorrect login');
-                }*/
+                }
 
 
             });
@@ -131,7 +134,7 @@ app.controller('insertController', function($scope, $window, $http) {
             || $('#school').val().length === 0 || $('#industry').val().length === 0
             || $('#organization').val().length === 0 || $('#location').val().length === 0
             || $('#password').val().length === 0 || $('#file').get(0).files.length === 0) {
-            $('#missing-values').css('display','inline');
+            $('#missing-values').css('display','block');
         } else {
             AWS.config.update({accessKeyId: $scope.accessKeyId, secretAccessKey: $scope.secretAccessKey,
              region: "us-east-1"});
@@ -191,7 +194,7 @@ app.controller('insertController', function($scope, $window, $http) {
                             $('#alumniForm').css("display","none");
                             $('#submit-btn').css("display","none");
                             $('#text1').html("Signup was successful");
-                            $('#return-btn').css("display","inline");
+                            $('#return-btn').css("display","block");
                             $window.scrollTo(0, 0);
                           }
                         });

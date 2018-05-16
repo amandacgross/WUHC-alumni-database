@@ -96,7 +96,7 @@ router.post('/checkPassword', function (req, res, next) {
   UserAccount.get(req.body.email, function (err, resp) {
     if (err) {
       console.log('Error finding account', err);
-      res.json('err');
+      res.redirect('/?err=true');
     } else if (resp == null) {
       res.redirect('/');
     } else {
@@ -107,7 +107,7 @@ router.post('/checkPassword', function (req, res, next) {
         req.user = resp.username;
         res.redirect('/lookup');
       } else {
-        res.json('err');
+        res.redirect('/?err=true');
       }
     }
   });
