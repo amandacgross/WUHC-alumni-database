@@ -2,7 +2,9 @@ var app = angular.module('angularjsNodejsTutorial',[]);
 
 app.controller('loginController', function($scope, $http, $window) {
         $scope.Init = function() {
-            console.log('hi');
+            if (location.search.length !== 0) {
+                $('#missing-values').css('display','inline');
+            }
         };
         $scope.Signin = function() {
 

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style>
 body,h1,h2,h3,h5,h6,label {font-family: "Lato", sans-serif, font-weight:"bolder"}
 h4 {font-family: "Lato", sans-serif, font-weight:"lighter"}
@@ -104,7 +105,11 @@ input[type=submit]:hover {
      <div class="w3-xlarge">
       If you would like to create an account to access the WUHC Alumni Database, please fill out the form below. 
     </div>
-    <form action="/create" method="post">
+    <form action="/create" method="post" onsubmit="if ($('#fname').val().length === 0 || $('#lname').val().length === 0
+        || $('#email').val().length === 0 || $('#password').val().length === 0) {
+        $('#missing-values').css('display','inline');
+        return false;
+        }">
       <div class="row">
         <div class="col-25">
           <label for="fname">First Name: </label>
@@ -137,6 +142,7 @@ input[type=submit]:hover {
          <input type="password" id="password" name="password" placeholder="Password...">
         </div>
       </div>
+      <div class="w3-large" id="missing-values" style="display:none">Please complete all fields.</div>
       <div class="row">
         <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit" >Submit</button>
       </div>
