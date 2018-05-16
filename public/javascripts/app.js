@@ -10,60 +10,6 @@ app.controller('loginController', function($scope, $http, $window) {
                 console.log('false')
             }
         };
-        $scope.Signin = function() {
-
-            var data = {
-                 username: $scope.username,
-                 password: $scope.password
-            };
-
-            //var request = $http.post('/signin', data);
-            var request = $http.post('/checkPassword', data);
-            request.success(function(data) {
-                if(data){
-                    $scope.mg = 'sign in successful';
-                    console.log('login success');
-                    $window.location.href = '/menu?user='+$scope.email;
-
-                }else{
-                    $scope.mg = 'Incorrect username or password! Please click sign up if you are a new user';
-                    console.log('incorrect login');
-                }
-
-
-            });
-            request.error(function(data){
-                console.log('err in signin call');
-            });
-
-        };
-
-        $scope.Signup = function() {
-
-            var data = {
-                 email: $scope.email,
-                 password: $scope.password
-            };
-
-            var request = $http.post('/signup', data);
-            request.success(function(data) {
-                if(data == true){
-                    $scope.mg = 'signup successful';
-                    console.log('signup success');
-                    $window.location.href = '/menu?user='+$scope.email;
-
-                }else{
-                    $scope.mg = 'User already exists! Please click Sign in instead.';
-                    console.log('incorrect signup');
-                }
-
-
-            });
-            request.error(function(data){
-                console.log('err in signup call');
-            });
-
-        }
 });
 
 //Call this function when page loads rather than waiting for the click

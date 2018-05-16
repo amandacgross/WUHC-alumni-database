@@ -98,7 +98,7 @@ router.post('/checkPassword', function (req, res, next) {
       console.log('Error finding account', err);
       res.redirect('/?err=true');
     } else if (resp == null) {
-      res.redirect('/');
+      res.redirect('/?err=true');
     } else {
       var hashPass = resp.attrs.password;
       if (req.body.password == hashPass) {
