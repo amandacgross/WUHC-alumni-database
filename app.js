@@ -10,7 +10,6 @@ var uuid = require('node-uuid');
 var index = require('./routes/index');
 // checks if a user is logged in, otherwise redirects to login
 var passwordCheck = require('./middlewares/passwordCheck'); 
-//var users = require('./routes/users');
 
 var app = express();
 
@@ -37,11 +36,12 @@ app.use(cookieSession({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/insertProfile', index);
+app.use('/createAlumnus', index);
+app.use('/createStudent', index);
 app.use('/lookup', passwordCheck, index);
-app.use('/profile', passwordCheck);
-app.use('/saved', passwordCheck);
-//app.use('/users', users);
+app.use('/studentProfile', passwordCheck);
+app.use('/alumnusProfile', passwordCheck);
+// app.use('/saved', passwordCheck);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
