@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="angularjsNodejsTutorial">
+<head>
+  <title id="title">WUHC Alumni Database</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
+  <link rel="icon" type="image/png" href="https://s3.amazonaws.com/wuhc/logo.png" sizes="16x16">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href="/stylesheets/profile-css.css" rel="stylesheet">
+  <style>
+    body {font-family: "Lato", sans-serif, font-weight:"bolder"}
+    td, h4 {font-family: "Lato"}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    * {box-sizing: border-box}
+  </style>
+</head>
+
+<body data-spy="scroll" data-target=".scrollspy">
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="/lookup" class="w3-bar-item w3-button w3-padding-large w3-white">Alumni Lookup</a>
+      <form action="/logout" method="post">
+        <button class="w3-bar-item w3-button w3-padding-large w3-hover-white" type="submit">Log Out</button> 
+      </form>
+    </div>
+  </div>
+
+  <div ng-controller="profileController" class="wrapper">
+    <h1 id="name"></h1>
+    <h4 id="email" style="display:block; margin: 4px"></h4>
+    <br><br>
+    <div class="w3-col s4" style="padding-top: 6px">
+      <img id="photo" class="w3-image" width=250 height=250>
+      <div id="ints">
+        <h4 id="interests" style="display:block"></h4>
+      </div>
+    </div>
+    <div class="w3-col s8 inner-wrapper">
+      <div class="infobox">
+        <h4>Academic Info</h4> 
+        <table class="infotable">
+          <tr>
+            <td>School: </td>
+            <td id="school"></td>
+          </tr>
+          <tr>
+            <td>Graudation Year: </td>
+            <td id="year"></td>
+          </tr>
+          <tr>
+            <td>Major/Program: </td>
+            <td id="major"></td>
+          </tr>
+        </table>
+        <br/><br/>
+        <h4>Employment Info</h4>
+        <table class="infotable">
+          <tr>
+            <td>Position: </td>
+            <td id="position"></td>
+          </tr>
+          <tr>
+            <td>Industry: </td>
+            <td id="descI"></td>
+          </tr>
+          <tr>
+            <td>Company/Organization: </td>
+            <td id="descCO"></td>
+          </tr>
+          <tr>
+            <td>Location: </td>
+            <td id="location"></td>
+          </tr>
+        </table>
+        <br/><br/>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
